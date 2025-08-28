@@ -1,20 +1,20 @@
 contas = []
 
-TAXA_SAQUE = 2.50
-TAXA_DEPOSITO = 1.00
-TAXA_TRANSFERENCIA = 5.00
+taxadepositar = 1.00
+taxasacar = 2.50
+taxatransferir = 5.00
 
 def criar_conta():
-    nome = input("Nome do cliente: ")
-    numero = input("Número da conta: ")
-    senha = input("Crie uma senha: ")
-    saldo = float(input("Saldo inicial: R$ "))
+    nome = input("Insira seu nome: ")
+    numero = input("Insira o número da conta: ")
+    senha = input("Crie sua senha: ")
+    saldo = float(input("Insira o saldo inicial: R$ "))
     for conta in contas:
         if conta[1] == numero:
-            print("Conta já existe.")
+            print("Esta conta já existe.")
             return
     contas.append([nome, numero, senha, saldo])
-    print("Conta cadastrada com sucesso!")
+    print("Sua conta foi cadastrada com sucesso!")
 
 def autenticar(numero, senha):
     for conta in contas:
@@ -23,27 +23,27 @@ def autenticar(numero, senha):
     return None
 
 def sacar(conta):
-    valor = float(input("Valor do saque: R$ "))
-    total = valor + TAXA_SAQUE
+    valor = float(input("Insira o valor do saque: R$ "))
+    total = valor + taxasacar
     if conta[3] >= total:
         conta[3] -= total
-        print("Saque de R$", valor, "realizado. Taxa: R$", TAXA_SAQUE)
+        print("O Saque de R$", valor, "foi realizado. Taxa cobrada: R$", taxasacar)
     else:
         print("Saldo insuficiente.")
 
 def depositar(conta):
-    valor = float(input("Valor do depósito: R$ "))
-    total = valor - TAXA_DEPOSITO
+    valor = float(input("Insira o valor do depósito: R$ "))
+    total = valor - taxadepositar
     if total > 0:
         conta[3] += total
-        print("Depósito de R$", valor, "realizado. Taxa: R$", TAXA_DEPOSITO)
+        print("O depósito de R$", valor, "foi realizado. Taxa cobrada: R$", taxadepositar)
     else:
-        print("Valor do depósito insuficiente para cobrir a taxa.")
+        print("O valor do depósito é insuficiente para cobrir a taxa.")
 
 def transferir(conta_origem):
-    destino_numero = input("Número da conta de destino: ")
-    valor = float(input("Valor da transferência: R$ "))
-    total = valor + TAXA_TRANSFERENCIA
+    destino_numero = input("Insira o número da conta de destino: ")
+    valor = float(input("Insira o valor da transferência: R$ "))
+    total = valor + taxatransferir
     if conta_origem[3] < total:
         print("Saldo insuficiente para transferência.")
         return
@@ -55,21 +55,21 @@ def transferir(conta_origem):
     if conta_destino:
         conta_origem[3] -= total
         conta_destino[3] += valor
-        print("Transferência de R$", valor, "realizada com sucesso. Taxa: R$", TAXA_TRANSFERENCIA)
+        print("A transferência de R$", valor, "foi realizada com sucesso. Taxa cobrada: R$", taxatransferir)
     else:
-        print("Conta de destino não encontrada.")
+        print("A conta de destino não existe")
 
 def listar_saldo(conta):
-    print("Cliente:", conta[0], "| Saldo: R$", conta[3])
+    print("Nome do cliente:", conta[0], "| Saldo: R$", conta[3])
 
 def menu_cliente(conta):
     while True:
-        print("MENU")
-        print("1. Sacar")
-        print("2. Depositar")
-        print("3. Transferir")
-        print("4. Ver saldo")
-        print("5. Sair")
+        print("BANCO SITACOB")
+        print("1 -- Sacar --")
+        print("2 -- Depositar --")
+        print("3 -- Transferir --")
+        print("4 -- Ver saldo --")
+        print("5 -- Sair --")
         opcao = input("Escolha uma opção: ")
         if opcao == "1":
             sacar(conta)
@@ -86,28 +86,28 @@ def menu_cliente(conta):
             print("Opção inválida.")
 
 def login():
-    numero = input("Número da conta: ")
-    senha = input("Senha: ")
+    numero = input("Insira o número da sua conta: ")
+    senha = input("Insira a senha da sua conta: ")
     conta = autenticar(numero, senha)
     if conta:
-        print("Bem-vindo,", conta[0], "!")
+        print("Seja bem-vindo,", conta[0], "!")
         menu_cliente(conta)
     else:
-        print("Login falhou. Número ou senha incorretos.")
+        print("O login falhou. Número ou senha incorretos.")
 
 def menu():
     while True:
-        print("BANCO")
-        print("1. Cadastrar nova conta")
-        print("2. Fazer login")
-        print("3. Sair")
+        print("BANCO SITACOB")
+        print("1 -- Cadastrar nova conta --")
+        print("2 -- Fazer login --")
+        print("3 -- Sair --")
         opcao = input("Escolha uma opção: ")
         if opcao == "1":
             criar_conta()
         elif opcao == "2":
             login()
         elif opcao == "3":
-            print("Encerrando o sistema. Obrigado!")
+            print("Encerrando o sistema bancário...")
             break
         else:
             print("Opção inválida.")
